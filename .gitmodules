@@ -1,0 +1,3 @@
+[submodule "project_1/aima-python"]
+	path = project_1/aima-python
+	url = https://github.com/aimacode/aima-python
