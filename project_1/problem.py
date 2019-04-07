@@ -9,10 +9,7 @@ class RobotRouteProblem(Problem):
         self.grid = grid
 
     def actions(self, state):
-        """Return the actions that can be executed in the given
-        state. The result would typically be a list, but if there are
-        many actions, consider yielding them one at a time in an
-        iterator, rather than building them all at once."""
+        """The actions of a position at a grid are its neighbors, given by each angle used to reach each neighbor"""
         possible_actions = [0, 45, 90, 135, 180, 225, 270, 315]
         direction = state.get_direction()
         walls = state.get_walls()
@@ -43,36 +40,33 @@ class RobotRouteProblem(Problem):
         return possible_actions
 
     def result(self, state, action):
-        """Return the state that results from executing the given
-        action in the given state. The action must be one of
-        self.actions(state)."""
+        """The result of each action is given by adding or subtracting the coordinates (x, y)"""
         new_state = RobotPosition()
         x, y = state.get_location()
-        d = 1
 
         if action == 0:
-            new_state.set_location(x + d, y)
+            new_state.set_location(x + 1, y)
             new_state.set_direction(0)
         elif action == 45:
-            new_state.set_location(x + d, y - d)
+            new_state.set_location(x + 1, y - 1)
             new_state.set_direction(45)
         elif action == 90:
-            new_state.set_location(x, y - d)
+            new_state.set_location(x, y - 1)
             new_state.set_direction(90)
         elif action == 135:
-            new_state.set_location(x - d, y - d)
+            new_state.set_location(x - 1, y - 1)
             new_state.set_direction(135)
         elif action == 180:
-            new_state.set_location(x - d, y)
+            new_state.set_location(x - 1, y)
             new_state.set_direction(180)
         elif action == 225:
-            new_state.set_location(x - d, y + d)
+            new_state.set_location(x - 1, y + 1)
             new_state.set_direction(225)
         elif action == 270:
-            new_state.set_location(x, y + d)
+            new_state.set_location(x, y + 1)
             new_state.set_direction(270)
         elif action == 315:
-            new_state.set_location(x + d, y + d)
+            new_state.set_location(x + 1, y + 1)
             new_state.set_direction(315)
 
         new_state.set_walls(self.grid)
