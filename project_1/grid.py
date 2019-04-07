@@ -65,6 +65,9 @@ class RobotPosition:
     def __hash__(self):
         return hash((self.x, self.y))
 
+    def __str__(self):
+        return '(' + str(self.x) + ', ' + str(self.y) + ')'
+
     def get_location(self):
         return self.x, self.y
 
