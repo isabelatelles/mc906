@@ -48,34 +48,33 @@ class RobotRouteProblem(Problem):
         self.actions(state)."""
         new_state = RobotPosition()
         x, y = state.get_location()
+        d = 1
 
         if action == 0:
-            new_state.set_location(x + 1, y)
+            new_state.set_location(x + d, y)
             new_state.set_direction(0)
         elif action == 45:
-            new_state.set_location(x + 1, y - 1)
+            new_state.set_location(x + d, y - d)
             new_state.set_direction(45)
         elif action == 90:
-            new_state.set_location(x, y - 1)
+            new_state.set_location(x, y - d)
             new_state.set_direction(90)
         elif action == 135:
-            new_state.set_location(x - 1, y - 1)
+            new_state.set_location(x - d, y - d)
             new_state.set_direction(135)
         elif action == 180:
-            new_state.set_location(x - 1, y)
+            new_state.set_location(x - d, y)
             new_state.set_direction(180)
         elif action == 225:
-            new_state.set_location(x - 1, y + 1)
+            new_state.set_location(x - d, y + d)
             new_state.set_direction(225)
         elif action == 270:
-            new_state.set_location(x, y + 1)
+            new_state.set_location(x, y + d)
             new_state.set_direction(270)
         elif action == 315:
-            new_state.set_location(x + 1, y + 1)
+            new_state.set_location(x + d, y + d)
             new_state.set_direction(315)
 
-        x, y = new_state.get_location()
-        walls = self.grid.get_walls_around_position(x, y)
-        new_state.set_walls(walls)
+        new_state.set_walls(self.grid)
 
         return new_state
