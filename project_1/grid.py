@@ -28,21 +28,12 @@ class Grid:
         self.data[0:int(self.walls_fraction[1] * self.order), self.order - int(self.walls_fraction[0] * self.order)] = \
             np.ones(int(self.walls_fraction[1] * self.order))
 
+    def __getitem__(self, item):
+        y, x = item
+        return self.data[y][x]
+
     def __setitem__(self, key, value):
         self.data[key[0]][key[1]] = value
-
-    def get_walls_around_position(self, x, y):
-        walls = list()
-        walls.append(True if self.data[y][x + 1] == 1 else False)
-        walls.append(True if self.data[y - 1][x + 1] == 1 else False)
-        walls.append(True if self.data[y - 1][x] == 1 else False)
-        walls.append(True if self.data[y - 1][x - 1] == 1 else False)
-        walls.append(True if self.data[y][x - 1] == 1 else False)
-        walls.append(True if self.data[y + 1][x - 1] == 1 else False)
-        walls.append(True if self.data[y + 1][x] == 1 else False)
-        walls.append(True if self.data[y + 1][x + 1] == 1 else False)
-
-        return walls
 
     def plot(self):
         plt.imshow(self.data, interpolation='nearest')
@@ -90,5 +81,13 @@ class RobotPosition:
     def set_direction(self, direction):
         self.direction = direction
 
-    def set_walls(self, walls):
-        self.walls = walls
+    def set_walls(self, grid):
+        self.walls = list()
+        self.walls.append(True if grid[self.y, self.x + 1] == 1 else False)
+        self.walls.append(True if grid[self.y - 1, self.x + 1] == 1 else False)
+        self.walls.append(True if grid[self.y - 1, self.x] == 1 else False)
+        self.walls.append(True if grid[self.y - 1, self.x - 1] == 1 else False)
+        self.walls.append(True if grid[self.y, self.x - 1] == 1 else False)
+        self.walls.append(True if grid[self.y + 1, self.x - 1] == 1 else False)
+        self.walls.append(True if grid[self.y + 1, self.x] == 1 else False)
+        self.walls.append(True if grid[self.y + 1, self.x + 1] == 1 else False)
